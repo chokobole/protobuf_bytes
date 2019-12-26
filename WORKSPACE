@@ -1,4 +1,4 @@
-workspace(name = "github_chokobole_protobuf_bytes")
+workspace(name = "protobuf_bytes")
 
 load("//bazel:protobuf_bytes_deps.bzl", "protobuf_bytes_deps")
 
