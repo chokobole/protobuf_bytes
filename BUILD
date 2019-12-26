@@ -11,11 +11,13 @@ config_setting(
 
 proto_library(
     name = "bytes_proto",
+    visibility = ["//visibility:public"],
     srcs = ["protobuf_bytes/bytes.proto"],
 )
 
 cc_proto_library(
     name = "bytes_cc_proto",
+    visibility = ["//visibility:public"],
     deps = [":bytes_proto"],
 )
 
