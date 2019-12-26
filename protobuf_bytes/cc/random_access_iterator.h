@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PROTOBUF_BYTES_RANDOM_ACCESS_ITERATOR_H_
-#define PROTOBUF_BYTES_RANDOM_ACCESS_ITERATOR_H_
+#ifndef PROTOBUF_BYTES_CC_RANDOM_ACCESS_ITERATOR_H_
+#define PROTOBUF_BYTES_CC_RANDOM_ACCESS_ITERATOR_H_
 
 #include <iterator>
 
@@ -210,4 +210,4 @@ class RandomAccessConstIterator {
 
 }  // namespace protobuf_bytes
 
-#endif  // PROTOBUF_BYTES_RANDOM_ACCESS_ITERATOR_H_
+#endif  // PROTOBUF_BYTES_CC_RANDOM_ACCESS_ITERATOR_H_

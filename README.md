@@ -7,7 +7,7 @@ This is a `c++` class correspondent to `protobuf` bytes, which is able to use `m
 ```c++
 #include <iostream>
 
-#include "protobuf_bytes/bytes.h"
+#include "protobuf_bytes/cc/bytes.h"
 
 struct Point {
   int x;

@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PROTOBUF_BYTES_EXPORT_H_
-#define PROTOBUF_BYTES_EXPORT_H_
+#ifndef PROTOBUF_BYTES_CC_EXPORT_H_
+#define PROTOBUF_BYTES_CC_EXPORT_H_
 
 #if defined(PROTOBUF_BYTES_COMPONENT_BUILD)
 
@@ -26,4 +26,4 @@
 #define PROTOBUF_BYTES_EXPORT
 #endif  // defined(PROTOBUF_BYTES_COMPONENT_BUILD)
 
-#endif  // PROTOBUF_BYTES_EXPORT_H_
+#endif  // PROTOBUF_BYTES_CC_EXPORT_H_

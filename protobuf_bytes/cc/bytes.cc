@@ -2,22 +2,22 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "protobuf_bytes/bytes.h"
+#include "protobuf_bytes/cc/bytes.h"
 
 namespace protobuf_bytes {
 
 Bytes::Bytes() : type_(0) {}
 
 Bytes::Bytes(const std::string& data, uint32_t type)
-    : data_(data), type_(type) {}
+    : type_(type), data_(data) {}
 
 Bytes::Bytes(std::string&& data, uint32_t type) noexcept
-    : data_(std::move(data)), type_(type) {}
+    : type_(type), data_(std::move(data)) {}
 
 Bytes::Bytes(const Bytes& other) = default;
 
 Bytes::Bytes(Bytes&& other) noexcept
-    : data_(std::move(other.data_)), type_(other.type_) {}
+    : type_(other.type_), data_(std::move(other.data_)) {}
 
 Bytes::~Bytes() = default;
 

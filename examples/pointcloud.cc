@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "protobuf_bytes/bytes.h"
+#include "protobuf_bytes/cc/bytes.h"
 
 using namespace protobuf_bytes;
 

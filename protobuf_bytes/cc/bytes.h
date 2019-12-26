@@ -2,18 +2,18 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PROTOBUF_BYTES_BYTES_H_
-#define PROTOBUF_BYTES_BYTES_H_
+#ifndef PROTOBUF_BYTES_CC_BYTES_H_
+#define PROTOBUF_BYTES_CC_BYTES_H_
 
 #include <sstream>
 #include <string>
 #include <type_traits>
 
 #include "protobuf_bytes/bytes.pb.h"
-#include "protobuf_bytes/bytes_constants.h"
-#include "protobuf_bytes/bytes_internal.h"
-#include "protobuf_bytes/export.h"
-#include "protobuf_bytes/random_access_iterator.h"
+#include "protobuf_bytes/cc/bytes_constants.h"
+#include "protobuf_bytes/cc/bytes_internal.h"
+#include "protobuf_bytes/cc/export.h"
+#include "protobuf_bytes/cc/random_access_iterator.h"
 
 namespace protobuf_bytes {
 
@@ -335,7 +335,7 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   Bytes();
   template <typename T>
   Bytes(const T* s, size_t n, uint32_t type = BytesMessageTraits<T>::bytes_type)
-      : data_(reinterpret_cast<const char*>(s), n), type_(type) {}
+      : type_(type), data_(reinterpret_cast<const char*>(s), n) {}
   Bytes(const std::string& data, uint32_t type = 0);
   Bytes(std::string&& data, uint32_t type = 0) noexcept;
   Bytes(const Bytes& other);
@@ -398,10 +398,10 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   template <typename T>
   friend class ConstView;
 
-  std::string data_;
   uint32_t type_;
+  std::string data_;
 };
 
 }  // namespace protobuf_bytes
 
-#endif  // PROTOBUF_BYTES_BYTES_H_
+#endif  // PROTOBUF_BYTES_CC_BYTES_H_

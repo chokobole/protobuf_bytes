@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PROTOBUF_BYTES_BYTES_INTERNAL_H_
-#define PROTOBUF_BYTES_BYTES_INTERNAL_H_
+#ifndef PROTOBUF_BYTES_CC_BYTES_INTERNAL_H_
+#define PROTOBUF_BYTES_CC_BYTES_INTERNAL_H_
 
 #include "protobuf_bytes/bytes.pb.h"
 
@@ -68,4 +68,4 @@ constexpr size_t GetChannelSize(BytesMessage::ChannelType channel_type) {
 }  // namespace internal
 }  // namespace protobuf_bytes
 
-#endif  // PROTOBUF_BYTES_BYTES_INTERNAL_H_
+#endif  // PROTOBUF_BYTES_CC_BYTES_INTERNAL_H_

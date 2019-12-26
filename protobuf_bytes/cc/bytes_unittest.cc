@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "protobuf_bytes/bytes.h"
+#include "protobuf_bytes/cc/bytes.h"
 
 #include "gtest/gtest.h"
 
