@@ -7,6 +7,7 @@
   - [Contents](#contents)
   - [How to use](#how-to-use)
     - [bazel](#bazel)
+    - [nodeJS](#nodejs)
   - [Examples](#examples)
   - [Usages](#usages)
     - [Type](#type)
@@ -78,6 +79,10 @@ cc_library(
     ]
 )
 ```
+
+### nodeJS
+
+please read [protobuf_bytes/js/README.md](protobuf_bytes/js/README.md).
 
 ## Examples
 
