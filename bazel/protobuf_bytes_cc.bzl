@@ -5,5 +5,6 @@ def protobuf_bytes_copts():
         ],
         "//conditions:default": [
             "-std=c++14",
+            "-fvisibility=hidden",
         ],
     })
