@@ -1,6 +1,6 @@
 def protobuf_bytes_copts():
     return select({
-        "//:windows": [
+        "@protobuf_bytes//:windows": [
             "/std:c++14",
         ],
         "//conditions:default": [
