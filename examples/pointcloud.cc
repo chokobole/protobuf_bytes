@@ -28,6 +28,7 @@ std::ostream& operator<<(std::ostream& os, const Point& point) {
 
 int main() {
   Bytes bytes;
+  bytes.set_type(BYTES_TYPE_8U_C3);
   Bytes::View<Point> view = bytes.AsView<Point>();
   view.emplace_back(1, 2);
   view.emplace_back(3, 4);
