@@ -4,6 +4,7 @@
 - [Protobuf Bytes for nodeJS](#protobuf-bytes-for-nodejs)
   - [Contents](#contents)
   - [Install](#install)
+  - [Get protobuf](#get-protobuf)
   - [Examples](#examples)
   - [APIs](#apis)
 
@@ -14,6 +15,10 @@ To use protobuf_bytes, install package via npm install.
 ```bash
 npm install protobuf_bytes
 ```
+
+## Get protobuf
+
+The protobuf file is located [here](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/bytes.proto).
 
 ## Examples
 
