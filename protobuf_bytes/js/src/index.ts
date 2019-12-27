@@ -46,7 +46,7 @@ export function element1Size(elementType: BytesElementType): number {
     case BytesElementType.ELEMENT_TYPE_64F:
       return 8;
     default:
-      throw new Error('Unknown element size');
+      return -1;
   }
 }
 
@@ -61,7 +61,7 @@ export function channelSize(channelType: BytesChannelType): number {
     case BytesChannelType.CHANNEL_TYPE_C4:
       return 4;
     default:
-      throw new Error('Unknown channel size');
+      return -1;
   }
 }
 

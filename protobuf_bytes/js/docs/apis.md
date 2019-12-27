@@ -87,14 +87,14 @@
 * `elementType` {BytesElementType}
 * {number}
 
-Returns the size of one element.
+Returns the size of one element. If `elementType` is not one of `BytesElementType` then returns -1.
 
 ## channelSize(channelType)
 
 * `channelType` {BytesChannelType}
 * {number}
 
-Returns the number of channel.
+Returns the number of channel. If `channelType` is not one of `BytesChannelType` then returns -1.
 
 ## getElementAndChannelType(type)
 
