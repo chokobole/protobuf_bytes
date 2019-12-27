@@ -157,7 +157,7 @@ class Bytes {
     hasData(idx) {
         return idx < this.length();
     }
-    nextData(idx) {
+    dataAt(idx) {
         const v = [];
         const from = this.elementSize() * idx;
         const to = this.elementSize() * (idx + 1);

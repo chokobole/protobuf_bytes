@@ -83,7 +83,7 @@ export declare class Bytes {
     constructor({ type, data }: BytesMessage);
     _bindReadFunc(): ((byteOffset: number, littenEndian?: boolean | undefined) => number) | ((byteOffset: number, littleEndian?: boolean | undefined) => bigint) | null;
     hasData(idx: number): boolean;
-    nextData(idx: number): number[];
+    dataAt(idx: number): number[];
     length(): number;
     elementSize(): number;
     element1Size(): number;
