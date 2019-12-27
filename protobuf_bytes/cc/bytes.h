@@ -355,6 +355,7 @@ class PROTOBUF_BYTES_EXPORT Bytes {
     return reinterpret_cast<T>(const_cast<char*>(data_.data()));
   }
 
+  // std::string methods
   size_t size() const noexcept;
 
   bool empty() const noexcept;
@@ -375,6 +376,7 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   uint32_t type() const;
   void set_type(uint32_t type);
 
+  // Decomposes the |type_| into |element_type| and |channel_type|.
   void GetElementaAndChannelType(BytesMessage::ElementType* element_type,
                                  BytesMessage::ChannelType* channel_type);
 
@@ -388,7 +390,10 @@ class PROTOBUF_BYTES_EXPORT Bytes {
     return View<T>(*this);
   }
 
+  // Converts to protobuf BytesMessage. If |copy| is ture,
+  // it copies the data. Otherwise, it moves the data.
   BytesMessage ToBytesMessage(bool copy = true);
+  // Converts from protobuf BytesMessage.
   bool FromBytesMessage(const BytesMessage& message);
   bool FromBytesMessage(BytesMessage&& message);
 

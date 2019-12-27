@@ -29,6 +29,7 @@ function getDataView(data) {
     const { buffer, byteOffset, byteLength } = data;
     return new DataView(buffer, byteOffset, byteLength);
 }
+// Returns the size of one element. If |elementType| is not one of BytesElementType, then returns -1.
 function element1Size(elementType) {
     switch (elementType) {
         case BytesElementType.ELEMENT_TYPE_8U:
@@ -50,6 +51,7 @@ function element1Size(elementType) {
     }
 }
 exports.element1Size = element1Size;
+// Returns the number of channel. If |channelType| is not one of BytesChannelType, then returns -1.
 function channelSize(channelType) {
     switch (channelType) {
         case BytesChannelType.CHANNEL_TYPE_C1:
@@ -65,10 +67,12 @@ function channelSize(channelType) {
     }
 }
 exports.channelSize = channelSize;
+// Decomposes the |type| and return the object containing |elementType| and |channelType|.
 function getElementAndChannelType(type) {
     return { elementType: (type >> 16) & 0xffff, channelType: type & 0xffff };
 }
 exports.getElementAndChannelType = getElementAndChannelType;
+// Composes |elementType| and |channelType|.
 function makeType(elementType, channelType) {
     return ((elementType & 0xffff) << 16) | (channelType & 0xffff);
 }
@@ -118,10 +122,10 @@ var BytesType;
 })(BytesType = exports.BytesType || (exports.BytesType = {}));
 class Bytes {
     constructor({ type, data }) {
-        this.length_ = 0;
-        this.elementSize_ = 0;
-        this.element1Size_ = 0;
-        this.channelSize_ = 0;
+        this._length = 0;
+        this._elementSize = 0;
+        this._element1Size = 0;
+        this._channelSize = 0;
         const { elementType, channelType } = getElementAndChannelType(type);
         this.elementType = elementType;
         this.channelType = channelType;
@@ -154,9 +158,11 @@ class Bytes {
                 return null;
         }
     }
+    // Returns true if there is data at |idx|.
     hasData(idx) {
         return idx < this.length();
     }
+    // Returns the element(array of number) at |idx|.
     dataAt(idx) {
         const v = [];
         const from = this.elementSize() * idx;
@@ -166,26 +172,30 @@ class Bytes {
         }
         return v;
     }
+    // Returns the length of data. This is not equal to byteLength.
     length() {
-        if (!this.length_)
-            this.length_ = this.dataView.byteLength / this.elementSize();
-        return this.length_;
+        if (!this._length)
+            this._length = this.dataView.byteLength / this.elementSize();
+        return this._length;
     }
+    // Returns the size of element. e.g) if type of bytes is BYTES_TYPE_8U_C3, then it returns 3.
     elementSize() {
-        if (!this.elementSize_) {
-            this.elementSize_ = this.element1Size() * this.channelSize();
+        if (!this._elementSize) {
+            this._elementSize = this.element1Size() * this.channelSize();
         }
-        return this.elementSize_;
+        return this._elementSize;
     }
+    // Returns the size of one element. e.g) if type of bytes is BYTES_TYPE_8U_C3, then it returns 1.
     element1Size() {
-        if (!this.element1Size_)
-            this.element1Size_ = element1Size(this.elementType);
-        return this.element1Size_;
+        if (!this._element1Size)
+            this._element1Size = element1Size(this.elementType);
+        return this._element1Size;
     }
+    // Returns the number of channel.
     channelSize() {
-        if (!this.channelSize_)
-            this.channelSize_ = channelSize(this.channelType);
-        return this.channelSize_;
+        if (!this._channelSize)
+            this._channelSize = channelSize(this.channelType);
+        return this._channelSize;
     }
 }
 exports.Bytes = Bytes;

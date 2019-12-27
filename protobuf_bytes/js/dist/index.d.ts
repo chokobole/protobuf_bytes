@@ -75,11 +75,11 @@ export declare class Bytes {
     elementType: BytesElementType;
     channelType: BytesChannelType;
     dataView: DataView;
-    readFunc: ((byteOffset: number, littenEndian?: boolean | undefined) => number) | ((byteOffset: number, littleEndian?: boolean | undefined) => bigint) | null;
-    private length_;
-    private elementSize_;
-    private element1Size_;
-    private channelSize_;
+    private readFunc;
+    private _length;
+    private _elementSize;
+    private _element1Size;
+    private _channelSize;
     constructor({ type, data }: BytesMessage);
     _bindReadFunc(): ((byteOffset: number, littenEndian?: boolean | undefined) => number) | ((byteOffset: number, littleEndian?: boolean | undefined) => bigint) | null;
     hasData(idx: number): boolean;

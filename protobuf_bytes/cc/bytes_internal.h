@@ -10,6 +10,7 @@
 namespace protobuf_bytes {
 namespace internal {
 
+// Decomposes the |type| into |element_type| and |channel_type|.
 constexpr void GetElementaAndChannelType(
     uint32_t type, BytesMessage::ElementType* element_type,
     BytesMessage::ChannelType* channel_type) {
@@ -19,12 +20,15 @@ constexpr void GetElementaAndChannelType(
       static_cast<BytesMessage::ChannelType>(static_cast<uint16_t>(type));
 }
 
+// Composes |element_type| and |channel_type|.
 constexpr uint32_t MakeBytesType(BytesMessage::ElementType element_type,
                                  BytesMessage::ChannelType channel_type) {
   return (static_cast<uint32_t>(element_type) << 16) |
          static_cast<uint32_t>(channel_type);
 }
 
+// Returns the size of one element. If |element_type| is not one of
+// BytesMessage::ElementType, then returns -1.
 constexpr size_t GetElement1Size(BytesMessage::ElementType element_type) {
   switch (element_type) {
     case BytesMessage::ELEMENT_TYPE_8U:
@@ -50,6 +54,8 @@ constexpr size_t GetElement1Size(BytesMessage::ElementType element_type) {
   }
 }
 
+// Returns the number of channel. If |channel_type| is not one of
+// BytesChannelType, then returns -1.
 constexpr size_t GetChannelSize(BytesMessage::ChannelType channel_type) {
   switch (channel_type) {
     case BytesMessage::CHANNEL_TYPE_C1:
