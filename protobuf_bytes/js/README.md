@@ -72,5 +72,4 @@ for (let i = 0; i < b2.length(); i++) {
 
 ## APIs
 
-Please reas [docs/apis.md](docs/apis.md).
-
+Please reads [docs/apis.md](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/js/docs/apis.md).
