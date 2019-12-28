@@ -184,6 +184,7 @@ class Bytes(object):
         type_info = get_element_and_channel_type(bytes_message.type)
         self.element_type = type_info['element_type']
         self.channel_type = type_info['channel_type']
+        self.bigendian = bytes_message.bigendian
         self.data = bytes_message.data
         self._read_func = self._bind_read_func()
         self._element_size = None
@@ -192,17 +193,25 @@ class Bytes(object):
         self._length = None
 
     def _bind_read_func(self):
+        u16fmtstr = '>H' if self.bigendian else '<H'
+        s16fmtstr = '>h' if self.bigendian else '<h'
+        u32fmtstr = '>I' if self.bigendian else '<I'
+        s32fmtstr = '>i' if self.bigendian else '<i'
+        u64fmtstr = '>L' if self.bigendian else '<L'
+        s64fmtstr = '>l' if self.bigendian else '<l'
+        f32fmtstr = '>f' if self.bigendian else '<f'
+        f64fmtstr = '>d' if self.bigendian else '<d'
         return {
             BytesElementType.ELEMENT_TYPE_8U: lambda b: unpack('B', b)[0],
             BytesElementType.ELEMENT_TYPE_8S: lambda b: unpack('b', b)[0],
-            BytesElementType.ELEMENT_TYPE_16U: lambda b: unpack('<H', b)[0],
-            BytesElementType.ELEMENT_TYPE_16S: lambda b: unpack('<h', b)[0],
-            BytesElementType.ELEMENT_TYPE_32U: lambda b: unpack('<I', b)[0],
-            BytesElementType.ELEMENT_TYPE_32S: lambda b: unpack('<i', b)[0],
-            BytesElementType.ELEMENT_TYPE_64U: lambda b: unpack('<L', b)[0],
-            BytesElementType.ELEMENT_TYPE_64S: lambda b: unpack('<l', b)[0],
-            BytesElementType.ELEMENT_TYPE_32F: lambda b: unpack('<f', b)[0],
-            BytesElementType.ELEMENT_TYPE_64F: lambda b: unpack('<d', b)[0],
+            BytesElementType.ELEMENT_TYPE_16U: lambda b: unpack(u16fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_16S: lambda b: unpack(s16fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_32U: lambda b: unpack(u32fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_32S: lambda b: unpack(s32fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_64U: lambda b: unpack(u64fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_64S: lambda b: unpack(s64fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_32F: lambda b: unpack(f32fmtstr, b)[0],
+            BytesElementType.ELEMENT_TYPE_64F: lambda b: unpack(f64fmtstr, b)[0],
         }.get(self.element_type, None)
 
     def has_data(self, idx):

@@ -18,7 +18,7 @@ npm install protobuf_bytes
 
 ## Get protobuf
 
-The protobuf file is located [here](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/bytes.proto).
+The protobuf file is located [here](/protobuf_bytes/bytes.proto).
 
 ## Examples
 
@@ -42,6 +42,7 @@ const data = new Uint8Array(buffer);
 
 const b = new Bytes({
   type: BytesType.BYTES_TYPE_8U_C1,
+  bigendian: false,
   data: data
 });
 
@@ -77,4 +78,4 @@ for (let i = 0; i < b2.length(); i++) {
 
 ## APIs
 
-Please reads [docs/apis.md](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/js/docs/apis.md).
+Please reads [docs/apis.md](docs/apis.md).

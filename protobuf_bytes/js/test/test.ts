@@ -14,6 +14,10 @@ function fillArrayBuffer(
   }
 }
 
+function makeUint16(high: number, low: number): number {
+  return ((high & 0xff) << 8) | (low & 0xff);
+}
+
 let data: Uint8Array | undefined;
 
 describe('Simple', () => {
@@ -28,19 +32,22 @@ describe('Simple', () => {
   });
 
   it('channelSize(), element1Size(), elementSize()', () => {
-    let bytes = new Bytes({ type: BytesType.BYTES_TYPE_8U_C1, data: data! });
+    let bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C1, bigendian: false, data: data!});
 
     assert.equal(bytes.channelSize(), 1);
     assert.equal(bytes.element1Size(), 1);
     assert.equal(bytes.elementSize(), 1);
 
-    bytes = new Bytes({ type: BytesType.BYTES_TYPE_8U_C3, data: data! });
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C3, bigendian: false, data: data!});
 
     assert.equal(bytes.channelSize(), 3);
     assert.equal(bytes.element1Size(), 1);
     assert.equal(bytes.elementSize(), 3);
 
-    bytes = new Bytes({ type: BytesType.BYTES_TYPE_16U_C3, data: data! });
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_16U_C3, bigendian: false, data: data!});
 
     assert.equal(bytes.channelSize(), 3);
     assert.equal(bytes.element1Size(), 2);
@@ -48,19 +55,37 @@ describe('Simple', () => {
   });
 
   it('dataAt() bigEndian', () => {
-    let bytes = new Bytes({ type: BytesType.BYTES_TYPE_8U_C1, data: data! });
+    let bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C1, bigendian: true, data: data!});
 
     assert.deepEqual(bytes.dataAt(0), [0]);
 
-    bytes = new Bytes({ type: BytesType.BYTES_TYPE_8U_C3, data: data! });
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C3, bigendian: true, data: data!});
 
     assert.deepEqual(bytes.dataAt(0), [0, 1, 2]);
 
-    bytes = new Bytes({ type: BytesType.BYTES_TYPE_16U_C3, data: data! });
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_16U_C3, bigendian: true, data: data!});
 
-    function makeUint16(high: number, low: number): number {
-      return ((high & 0xff) << 8) | (low & 0xff);
-    }
+    assert.deepEqual(
+        bytes.dataAt(0),
+        [makeUint16(0, 1), makeUint16(2, 3), makeUint16(4, 5)]);
+  });
+
+  it('dataAt() littleEndian', () => {
+    let bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C1, bigendian: false, data: data!});
+
+    assert.deepEqual(bytes.dataAt(0), [0]);
+
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_8U_C3, bigendian: false, data: data!});
+
+    assert.deepEqual(bytes.dataAt(0), [0, 1, 2]);
+
+    bytes = new Bytes(
+        {type: BytesType.BYTES_TYPE_16U_C3, bigendian: false, data: data!});
 
     assert.deepEqual(bytes.dataAt(0), [makeUint16(1, 0), makeUint16(3, 2), makeUint16(5, 4)]);
   });

@@ -13,7 +13,7 @@ with open(_README_PATH, 'rb') as fp:
 
 setuptools.setup(
     name='protobuf_bytes',
-    version='0.0.1',
+    version='1.0.0',
     author='Wonyong Kim',
     author_email='chokobole33@gmail.com',
     description='Python implementation of protobuf_bytes',

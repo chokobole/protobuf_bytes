@@ -121,7 +121,7 @@ var BytesType;
     BytesType[BytesType["BYTES_TYPE_64F_C4"] = makeType(BytesElementType.ELEMENT_TYPE_64F, BytesChannelType.CHANNEL_TYPE_C4)] = "BYTES_TYPE_64F_C4";
 })(BytesType = exports.BytesType || (exports.BytesType = {}));
 class Bytes {
-    constructor({ type, data }) {
+    constructor({ type, bigendian, data }) {
         this._length = 0;
         this._elementSize = 0;
         this._element1Size = 0;
@@ -129,6 +129,7 @@ class Bytes {
         const { elementType, channelType } = getElementAndChannelType(type);
         this.elementType = elementType;
         this.channelType = channelType;
+        this.bigendian = bigendian;
         this.dataView = getDataView(data);
         this.readFunc = this._bindReadFunc();
     }
@@ -168,7 +169,7 @@ class Bytes {
         const from = this.elementSize() * idx;
         const to = this.elementSize() * (idx + 1);
         for (let i = from; i < to; i += this.element1Size()) {
-            v.push(this.readFunc(i, true));
+            v.push(this.readFunc(i, !this.bigendian));
         }
         return v;
     }

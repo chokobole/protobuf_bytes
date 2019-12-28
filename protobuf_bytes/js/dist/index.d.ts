@@ -69,18 +69,20 @@ export declare enum BytesType {
 }
 export interface BytesMessage {
     type: number;
+    bigendian: boolean;
     data: Uint8Array;
 }
 export declare class Bytes {
     elementType: BytesElementType;
     channelType: BytesChannelType;
+    bigendian: boolean;
     dataView: DataView;
     private readFunc;
     private _length;
     private _elementSize;
     private _element1Size;
     private _channelSize;
-    constructor({ type, data }: BytesMessage);
+    constructor({ type, bigendian, data }: BytesMessage);
     _bindReadFunc(): ((byteOffset: number, littenEndian?: boolean | undefined) => number) | ((byteOffset: number, littleEndian?: boolean | undefined) => bigint) | null;
     hasData(idx: number): boolean;
     dataAt(idx: number): number[];

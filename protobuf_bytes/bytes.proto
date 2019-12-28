@@ -28,5 +28,6 @@ message BytesMessage {
     CHANNEL_TYPE_C4 = 4;
   };
   uint32 type = 1;
-  bytes data = 2;
+  bool bigendian = 2;
+  bytes data = 3;
 }

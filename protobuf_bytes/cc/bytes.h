@@ -343,7 +343,7 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   ~Bytes();
 
   Bytes& operator=(const Bytes& other);
-  Bytes& operator=(Bytes&& other);
+  Bytes& operator=(Bytes&& other) noexcept;
 
   template <typename T, std::enable_if_t<std::is_pointer<T>::value>* = nullptr>
   T cast() const noexcept {
@@ -376,6 +376,8 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   uint32_t type() const;
   void set_type(uint32_t type);
 
+  bool bigendian() const;
+
   // Decomposes the |type_| into |element_type| and |channel_type|.
   void GetElementaAndChannelType(BytesMessage::ElementType* element_type,
                                  BytesMessage::ChannelType* channel_type);
@@ -398,12 +400,18 @@ class PROTOBUF_BYTES_EXPORT Bytes {
   bool FromBytesMessage(BytesMessage&& message);
 
  private:
+  Bytes(const std::string& data, bool bigendian, uint32_t type = 0);
+  Bytes(std::string&& data, bool bigendian, uint32_t type = 0) noexcept;
+
+  void MarkNativeEndian();
+
   template <typename T>
   friend class View;
   template <typename T>
   friend class ConstView;
 
   uint32_t type_;
+  bool bigendian_;
   std::string data_;
 };
 

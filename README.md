@@ -8,6 +8,7 @@
   - [How to use](#how-to-use)
     - [bazel](#bazel)
     - [nodeJS](#nodejs)
+    - [python](#python)
   - [Examples](#examples)
   - [Usages](#usages)
     - [Type](#type)
@@ -83,6 +84,10 @@ cc_library(
 ### nodeJS
 
 please read [protobuf_bytes/js/README.md](protobuf_bytes/js/README.md).
+
+### python
+
+please read [protobuf_bytes/py/README.md](protobuf_bytes/py/README.md).
 
 ## Examples
 

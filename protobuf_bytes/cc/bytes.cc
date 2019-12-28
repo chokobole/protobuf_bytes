@@ -6,23 +6,40 @@
 
 namespace protobuf_bytes {
 
-Bytes::Bytes() : type_(0) {}
+Bytes::Bytes() : type_(0) { MarkNativeEndian(); }
 
 Bytes::Bytes(const std::string& data, uint32_t type)
-    : type_(type), data_(data) {}
+    : type_(type), data_(data) {
+  MarkNativeEndian();
+}
+
+Bytes::Bytes(const std::string& data, bool bigendian, uint32_t type)
+    : type_(type), bigendian_(bigendian), data_(data) {}
 
 Bytes::Bytes(std::string&& data, uint32_t type) noexcept
-    : type_(type), data_(std::move(data)) {}
+    : type_(type), data_(std::move(data)) {
+  MarkNativeEndian();
+}
+
+Bytes::Bytes(std::string&& data, bool bigendian, uint32_t type) noexcept
+    : type_(type), bigendian_(bigendian), data_(std::move(data)) {}
 
 Bytes::Bytes(const Bytes& other) = default;
 
 Bytes::Bytes(Bytes&& other) noexcept
-    : type_(other.type_), data_(std::move(other.data_)) {}
+    : type_(other.type_),
+      bigendian_(other.bigendian_),
+      data_(std::move(other.data_)) {}
 
 Bytes::~Bytes() = default;
 
 Bytes& Bytes::operator=(const Bytes& other) = default;
-Bytes& Bytes::operator=(Bytes&& other) = default;
+Bytes& Bytes::operator=(Bytes&& other) noexcept {
+  type_ = other.type_;
+  bigendian_ = other.bigendian_;
+  data_ = std::move(other.data_);
+  return *this;
+}
 
 size_t Bytes::size() const noexcept { return data_.size(); }
 
@@ -44,6 +61,18 @@ std::string&& Bytes::data() && noexcept { return std::move(data_); }
 uint32_t Bytes::type() const { return type_; }
 void Bytes::set_type(uint32_t type) { type_ = type; }
 
+bool Bytes::bigendian() const { return bigendian_; }
+
+void Bytes::MarkNativeEndian() {
+  union {
+    uint8_t c[4];
+    uint32_t i;
+  } u;
+
+  u.i = 0x01020304;
+  bigendian_ = u.c[0] == 0x01;
+}
+
 void Bytes::GetElementaAndChannelType(BytesMessage::ElementType* element_type,
                                       BytesMessage::ChannelType* channel_type) {
   internal::GetElementaAndChannelType(type_, element_type, channel_type);
@@ -52,6 +81,7 @@ void Bytes::GetElementaAndChannelType(BytesMessage::ElementType* element_type,
 BytesMessage Bytes::ToBytesMessage(bool copy) {
   BytesMessage message;
   message.set_type(type_);
+  message.set_bigendian(bigendian_);
   if (copy)
     message.set_data(data_);
   else
@@ -60,13 +90,13 @@ BytesMessage Bytes::ToBytesMessage(bool copy) {
 }
 
 bool Bytes::FromBytesMessage(const BytesMessage& message) {
-  *this = Bytes(message.data(), message.type());
+  *this = Bytes(message.data(), message.bigendian(), message.type());
   return true;
 }
 
 bool Bytes::FromBytesMessage(BytesMessage&& message) {
   std::unique_ptr<std::string> data(message.release_data());
-  *this = Bytes(std::move(*data), message.type());
+  *this = Bytes(std::move(*data), message.bigendian(), message.type());
   return true;
 }
 

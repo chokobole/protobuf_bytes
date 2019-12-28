@@ -9,7 +9,7 @@
   - [getElementAndChannelType(type)](#getelementandchanneltypetype)
   - [makeType(elementType, channelType)](#maketypeelementtype-channeltype)
   - [Class: Bytes](#class-bytes)
-    - [new Bytes({ type, data })](#new-bytes-type-data)
+    - [new Bytes({ type, bigendian, data })](#new-bytes-type-bigendian-data)
     - [bytes.hasData(idx)](#byteshasdataidx)
     - [bytes.dataAt(idx)](#bytesdataatidx)
     - [bytes.length()](#byteslength)
@@ -87,14 +87,14 @@
 * `elementType` {BytesElementType}
 * {number}
 
-Returns the size of one element. If `elementType` is not one of `BytesElementType` then returns -1.
+Returns the size of one element. If `elementType` is not one of `BytesElementType`, then returns -1.
 
 ## channelSize(channelType)
 
 * `channelType` {BytesChannelType}
 * {number}
 
-Returns the number of channel. If `channelType` is not one of `BytesChannelType` then returns -1.
+Returns the number of channel. If `channelType` is not one of `BytesChannelType`, then returns -1.
 
 ## getElementAndChannelType(type)
 
@@ -115,9 +115,10 @@ Composes `elementType` and `channelType`.
 
 This class represents a protobuf bytes.
 
-### new Bytes({ type, data })
+### new Bytes({ type, bigendian, data })
 
 * `type` {BytesType}
+* `bigendian` {boolean}
 * `data` {Uint8Array}
 
 Creates a new bytes instance.

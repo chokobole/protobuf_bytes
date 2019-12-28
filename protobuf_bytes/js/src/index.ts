@@ -124,6 +124,7 @@ export enum BytesType {
 
 export interface BytesMessage {
   type: number;
+  bigendian: boolean;
   data: Uint8Array;
 }
 
@@ -131,6 +132,8 @@ export class Bytes {
   elementType: BytesElementType;
 
   channelType: BytesChannelType;
+
+  bigendian: boolean;
 
   dataView: DataView;
 
@@ -147,10 +150,11 @@ export class Bytes {
 
   private _channelSize = 0;
 
-  constructor({ type, data }: BytesMessage) {
+  constructor({type, bigendian, data}: BytesMessage) {
     const { elementType, channelType } = getElementAndChannelType(type);
     this.elementType = elementType;
     this.channelType = channelType;
+    this.bigendian = bigendian;
     this.dataView = getDataView(data);
     this.readFunc = this._bindReadFunc()!;
   }
@@ -196,7 +200,7 @@ export class Bytes {
     const from = this.elementSize() * idx;
     const to = this.elementSize() * (idx + 1);
     for (let i = from; i < to; i += this.element1Size()) {
-      v.push(this.readFunc!(i, true));
+      v.push(this.readFunc!(i, !this.bigendian));
     }
     return v as number[];
   }

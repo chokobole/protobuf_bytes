@@ -1,6 +1,6 @@
 {
   "name": "protobuf_bytes",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "JS implementation of protobuf_bytes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
