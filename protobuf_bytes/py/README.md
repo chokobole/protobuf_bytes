@@ -24,7 +24,7 @@ python setup.py install
 
 ## Get protobuf
 
-The protobuf file is located [here](/protobuf_bytes/bytes.proto).
+The protobuf file is located [here](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/bytes.proto).
 
 ## Examples
 
@@ -65,4 +65,4 @@ for i in range(b.length()):
 
 ## APIs
 
-Please reads [docs/apis.md](docs/apis.md).
+Please reads [docs/apis.md](https://github.com/chokobole/protobuf_bytes/blob/master/protobuf_bytes/py/docs/apis.md).

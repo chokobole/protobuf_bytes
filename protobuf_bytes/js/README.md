@@ -78,4 +78,4 @@ for (let i = 0; i < b2.length(); i++) {
 
 ## APIs
 
-Please reads [docs/apis.md](docs/apis.md).
+Please reads [docs/apis.md](/protobuf_bytes/js/docs/apis.md).
