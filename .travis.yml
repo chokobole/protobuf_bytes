@@ -25,6 +25,8 @@ matrix:
       after_failure:
         - find bazel-out/ -name "test.log" | xargs cat
     - os: windows
+      env:
+        - USE_CLANG_CL=1
       install:
         - choco install bazel --version 1.2.0
       script:
